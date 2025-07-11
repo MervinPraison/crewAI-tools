@@ -1,3 +1,12 @@
+from .adapters.enterprise_adapter import EnterpriseActionTool
+from .adapters.mcp_adapter import MCPServerAdapter
+from .adapters.zapier_adapter import ZapierActionTool
+from .aws import (
+    BedrockInvokeAgentTool,
+    BedrockKBRetrieverTool,
+    S3ReaderTool,
+    S3WriterTool,
+)
 from .tools import (
     AIMindTool,
     ApifyActorsTool,
@@ -6,6 +15,8 @@ from .tools import (
     CodeDocsSearchTool,
     CodeInterpreterTool,
     ComposioTool,
+    CouchbaseFTSVectorSearchTool,
+    CrewaiEnterpriseTools,
     CSVSearchTool,
     DallETool,
     DatabricksQueryTool,
@@ -13,6 +24,7 @@ from .tools import (
     DirectorySearchTool,
     DOCXSearchTool,
     EXASearchTool,
+    FileCompressorTool,
     FileReadTool,
     FileWriterTool,
     FirecrawlCrawlWebsiteTool,
@@ -24,9 +36,15 @@ from .tools import (
     LinkupSearchTool,
     LlamaIndexTool,
     MDXSearchTool,
+    MongoDBVectorSearchConfig,
+    MongoDBVectorSearchTool,
     MultiOnTool,
     MySQLSearchTool,
     NL2SQLTool,
+    OxylabsUniversalScraperTool,
+    OxylabsGoogleSearchScraperTool,
+    OxylabsAmazonProductScraperTool,
+    OxylabsAmazonSearchScraperTool,
     PatronusEvalTool,
     PatronusLocalEvaluatorTool,
     PatronusPredefinedCriteriaEvalTool,
@@ -51,6 +69,7 @@ from .tools import (
     SnowflakeConfig,
     SnowflakeSearchTool,
     SpiderTool,
+    StagehandTool,
     TXTSearchTool,
     VisionTool,
     WeaviateVectorSearchTool,
@@ -58,11 +77,5 @@ from .tools import (
     XMLSearchTool,
     YoutubeChannelSearchTool,
     YoutubeVideoSearchTool,
-)
-
-from .aws import (
-    S3ReaderTool,
-    S3WriterTool,
-    BedrockKBRetrieverTool,
-    BedrockInvokeAgentTool,
+    ZapierActionTools,
 )

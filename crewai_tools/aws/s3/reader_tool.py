@@ -1,10 +1,8 @@
-from typing import Type
+from typing import Any, Type, List
 import os
 
 from crewai.tools import BaseTool
 from pydantic import BaseModel, Field
-import boto3
-from botocore.exceptions import ClientError
 
 
 class S3ReaderToolInput(BaseModel):
@@ -17,8 +15,15 @@ class S3ReaderTool(BaseTool):
     name: str = "S3 Reader Tool"
     description: str = "Reads a file from Amazon S3 given an S3 file path"
     args_schema: Type[BaseModel] = S3ReaderToolInput
+    package_dependencies: List[str] = ["boto3"]
 
     def _run(self, file_path: str) -> str:
+        try:
+            import boto3
+            from botocore.exceptions import ClientError
+        except ImportError:
+            raise ImportError("`boto3` package not found, please run `uv add boto3`")
+
         try:
             bucket_name, object_key = self._parse_s3_path(file_path)
 
