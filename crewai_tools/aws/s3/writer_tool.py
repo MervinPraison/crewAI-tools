@@ -1,22 +1,28 @@
-from typing import Type
+from typing import Type, List
 import os
 
 from crewai.tools import BaseTool
 from pydantic import BaseModel, Field
-import boto3
-from botocore.exceptions import ClientError
 
 class S3WriterToolInput(BaseModel):
     """Input schema for S3WriterTool."""
     file_path: str = Field(..., description="S3 file path (e.g., 's3://bucket-name/file-name')")
     content: str = Field(..., description="Content to write to the file")
 
+
 class S3WriterTool(BaseTool):
     name: str = "S3 Writer Tool"
     description: str = "Writes content to a file in Amazon S3 given an S3 file path"
     args_schema: Type[BaseModel] = S3WriterToolInput
+    package_dependencies: List[str] = ["boto3"]
 
     def _run(self, file_path: str, content: str) -> str:
+        try:
+            import boto3
+            from botocore.exceptions import ClientError
+        except ImportError:
+            raise ImportError("`boto3` package not found, please run `uv add boto3`")
+
         try:
             bucket_name, object_key = self._parse_s3_path(file_path)
 
